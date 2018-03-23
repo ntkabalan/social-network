@@ -1,0 +1,62 @@
+<div class="row mt-2">
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <img src="/img/user-placeholder.png" class="rounded-circle mx-auto d-block mb-3">
+
+                <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@{{user.handle}}</h6>
+
+                <div class="stats">
+                    <div class="stat">
+                        <small>Followers</small>
+                        <div>{{arrayItemCount user.followers}}</div>
+                    </div>
+                    <div class="stat">
+                        <small>Following</small>
+                        <div>{{arrayItemCount user.following}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <form action="tweets/tweet" method="POST" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="What's happening?" name="text" autocomplete="off">
+                <div class="input-group-append">
+                    <input class="btn btn-primary" type="submit" value="Tweet"></input>
+                </div>
+            </div>
+        </form>
+
+        {{#if tweets}}
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                {{#each tweets}}
+                <li class="list-group-item">
+                    <div class="tweet-contents">
+                        <div class="profile-icon">
+                            <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
+                        </div>
+                        <div class="text pl-3">
+                            <div class="user-info">
+                                <small class="align-top">
+                                    <a class="align-top" href="/users/profile/{{user.handle}}">{{user.firstName}} {{user.lastName}}</a> <span class="align-top text-muted">@{{user.handle}}</span>
+                                </small>
+                            </div>
+                            <div class="tweet-body">
+                                {{text}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+        {{else}}
+        <h6 class="text-center">No tweets found...</h6>
+        {{/if}}
+    </div>
+</div>

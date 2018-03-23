@@ -1,0 +1,21 @@
+.card-body .stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-body .stats .stat {
+    flex: 1;
+}
+
+.card-body img {
+    width: 50%;
+}
+
+.tweet-contents {
+    display: flex;
+    flex-direction: row;
+}
+
+.tweet-contents .text {
+    flex: 1;
+}

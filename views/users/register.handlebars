@@ -1,0 +1,72 @@
+<div class="row mb-5">
+    <div class="col-md-5 col-sm-12 mx-auto mt-5">
+        <h2 class="mb-4"><i class="fas fa-user-circle text-primary"></i> Register</h2>
+
+        {{#each errors}}
+            <div class="alert alert-danger">{{msg}}</div>
+        {{/each}}
+
+        <form action="/users/register" method="POST">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input class="form-control" type="text" name="firstName" autocomplete="off" value="{{firstName}}">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input class="form-control" type="text" name="lastName" autocomplete="off" value="{{lastName}}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" autocomplete="off" value="{{email}}">
+            </div>
+
+            <div class="form-group">
+                <label for="handle">Handle</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                    </div>
+                    <input class="form-control" type="text" name="handle" autocomplete="off" value="{{handle}}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input class="form-control" type="password" name="confirmPassword">
+            </div>
+
+            <input class="btn btn-primary btn-block" type="submit">
+        </form>
+    </div>
+</div>
+
+{{!--
+<form action="/users/register" method="POST">
+    <label for="firstName">First Name</label>
+    <input type="text" name="firstName" autocomplete="off">
+
+    <label for="lastName">Last Name</label>
+    <input type="text" name="lastName" autocomplete="off">
+
+    <label for="email">Email</label>
+    <input type="email" name="email" autocomplete="off">
+
+    <label for="handle">Handle</label>
+    <input type="text" name="handle" autocomplete="off">
+
+    <label for="password">Password</label>
+    <input type="password" name="password">
+
+    <label for="confirmPassword">Password</label>
+    <input type="password" name="confirmPassword">
+
+    <input type="submit">
+</form> --}}
