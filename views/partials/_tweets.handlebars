@@ -1,0 +1,51 @@
+{{#if tweets}} {{!-- Modal --}}
+<div class="modal fade" id="editTweetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTweetModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" id="edit-tweet-text-area"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="finish-edit">Edit Tweet</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Tweets --}}
+<div class="card">
+    <ul class="list-group list-group-flush">
+        {{#each tweets}}
+        <li class="list-group-item">
+            <div class="tweet-contents">
+                <div class="profile-icon">
+                    <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
+                </div>
+                <div class="text pl-3">
+                    <div class="user-info">
+                        <small class="align-top">
+                            <a class="align-top" href="/users/profile/{{user.handle}}">{{user.firstName}} {{user.lastName}}</a>
+                            <span class="align-top text-muted">@{{user.handle}}</span>
+                        </small>
+                    </div>
+                    <div class="tweet-body">
+                        {{text}}
+                    </div>
+                </div>
+
+                {{{generateEditDeleteButtons ../user user this}}}
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>
+{{else}}
+<h6 class="text-center">No tweets found...</h6>
+{{/if}}

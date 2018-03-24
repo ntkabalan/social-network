@@ -16,14 +16,9 @@ const dbConfig = require('./config/database');
 
 const app = express();
 
-// Handlebars setup
-const { arrayItemCount, generateFollowButton } = require('./helpers/hbs');
 app.engine('handlebars', exphbs({
     defaultLayout: 'main',
-    helpers: {
-        arrayItemCount,
-        generateFollowButton
-    }
+    helpers: require('./helpers/hbs')
 }));
 app.set('view engine', 'handlebars');
 

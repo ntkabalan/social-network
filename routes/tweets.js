@@ -27,4 +27,22 @@ router.post('/tweet', ensureAuthenticated, (req, res) => {
     }
 });
 
+// PUT requests
+
+router.put('/:id', ensureAuthenticated, (req, res) => {
+    const tweetID = req.body.tweetID;
+    const newTweetText = req.body.text;
+
+    Tweet.findById(tweetID)
+    .then(tweet => {
+        tweet.text = newTweetText;
+        tweet.save();
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        req.flash('error_msg', 'Failed to edit Tweet - please try again later');
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;

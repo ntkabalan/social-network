@@ -26,32 +26,6 @@
     </div>
 
     <div class="col-sm-6">
-        {{#if tweets}}
-        <div class="card">
-            <ul class="list-group list-group-flush">
-                {{#each tweets}}
-                <li class="list-group-item">
-                    <div class="tweet-contents">
-                        <div class="profile-icon">
-                            <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
-                        </div>
-                        <div class="text pl-3">
-                            <div class="user-info">
-                                <small class="align-top">
-                                    <a class="align-top" href="/users/profile/{{user.handle}}">{{user.firstName}} {{user.lastName}}</a> <span class="align-top text-muted">@{{user.handle}}</span>
-                                </small>
-                            </div>
-                            <div class="tweet-body">
-                                {{text}}
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-        {{else}}
-        <h6 class="text-center">No tweets found...</h6>
-        {{/if}}
+        {{> _tweets}}
     </div>
 </div>

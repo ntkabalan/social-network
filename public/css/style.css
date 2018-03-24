@@ -19,3 +19,8 @@
 .tweet-contents .text {
     flex: 1;
 }
+
+.tweet-control:hover {
+    cursor: pointer;
+    color: #007bff;
+}
