@@ -25,7 +25,7 @@ module.exports = {
                 <div data-text="${tweet.text}" data-tweetid="${tweet.id}"></div>
                 <div class="align-top">
                     <i class="fas fa-edit tweet-control align-top edit-tweet"></i>
-                    <i class="fas fa-trash-alt tweet-control align-top  delete-tweet"></i>
+                    <i class="fas fa-trash-alt tweet-control align-top delete-tweet"></i>
                 </div>
             `
         } else {
