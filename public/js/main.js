@@ -71,4 +71,21 @@ window.onload = () => {
             location.reload();
         });
     }
+
+    let charCounter = document.querySelector('#char-count');
+    if (charCounter) {
+        charCounter.innerText = 140;
+        let tweetBody = document.querySelector('#tweet-body');
+        if (tweetBody) {
+            tweetBody.addEventListener('input', () => {
+                charCounter.innerText = 140 - tweetBody.value.length;
+
+                if (parseInt(charCounter.innerText) < 0) {
+                    charCounter.classList.add('text-danger');
+                } else {
+                    charCounter.classList.remove('text-danger');
+                }
+            });
+        }
+    }
 }

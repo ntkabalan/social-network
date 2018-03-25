@@ -11,12 +11,14 @@ const router = express.Router();
 // POST requests
 
 router.post('/tweet', ensureAuthenticated, (req, res) => {
-    req.check('text').notEmpty();
+    req.check('text', 'Tweet body empty').notEmpty();
+    req.check('text', 'Tweets cannot be longer than 140 characters').isLength({ max: 140 });
 
     const errors = req.validationErrors();
 
     if (errors) {
-        res.send('Handle blank tweet');
+        req.flash('error_msg', errors[0].msg);
+        res.redirect('/');
     } else {
         const newTweet = {
             user: req.user.id,

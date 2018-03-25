@@ -22,16 +22,25 @@
     </div>
 
     <div class="col-sm-6">
+        {{#each errors}}
+            <div class="alert alert-danger">{{msg}}</div>
+        {{/each}}
+
         {{> _msg}}
 
-        <form action="tweets/tweet" method="POST" class="mb-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="What's happening?" name="text" autocomplete="off">
-                <div class="input-group-append">
-                    <input class="btn btn-primary" type="submit" value="Tweet"></input>
-                </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="tweets/tweet" method="POST">
+                    <div class="form-group mb-2">
+                        <textarea name="text" id="tweet-body" class="form-control" placeholder="What's happening?"></textarea>
+                    </div>
+                    <div>
+                        <small class="align-top" id="char-count"></small>
+                        <input class="btn btn-primary float-right" type="submit" value="Tweet">
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
 
         {{> _tweets}}
     </div>
