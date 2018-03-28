@@ -88,4 +88,26 @@ window.onload = () => {
             });
         }
     }
+
+    let favoriteButtons = document.querySelectorAll('.favorite');
+    if (favoriteButtons) {
+        favoriteButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let httpRequest = new XMLHttpRequest();
+                httpRequest.open('POST', '/tweets/favorite', true);
+                httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                httpRequest.send(JSON.stringify({
+                    test: 'Hello'
+                }));
+
+                httpRequest.onload = () => {
+                    let res = httpRequest.responseText;
+                    if (res) {
+                        res = JSON.parse(res);
+                        console.log(res);
+                    }
+                }
+            });
+        });
+    }
 }

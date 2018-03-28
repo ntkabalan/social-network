@@ -29,6 +29,12 @@ router.post('/tweet', ensureAuthenticated, (req, res) => {
     }
 });
 
+router.post('/favorite', ensureAuthenticated, (req, res) => {
+    res.send(JSON.stringify({
+        test2: 'Hello'
+    }));
+});
+
 // PUT requests
 
 router.put('/', ensureAuthenticated, (req, res) => {
