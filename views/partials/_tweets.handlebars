@@ -47,7 +47,7 @@
 </div>
 
 {{!-- Tweets --}}
-<div class="card">
+<div class="card mb-4">
     <ul class="list-group list-group-flush">
         {{#each tweets}}
         <li class="list-group-item">
@@ -62,8 +62,13 @@
                             <span class="align-top text-muted">@{{user.handle}}</span>
                         </small>
                     </div>
-                    <div class="tweet-body">
+                    <div class="tweet-body mb-2">
                         {{text}}
+                    </div>
+                    <div class="tweet-actions">
+                        <div class="tweet-action">
+                            {{{generateFavoriteButton ../user this}}}
+                        </div>
                     </div>
                 </div>
 

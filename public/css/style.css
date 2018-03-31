@@ -24,3 +24,20 @@
     cursor: pointer;
     color: #007bff;
 }
+
+.tweet-actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.tweet-actions .tweet-action {
+    margin: 0 15px;
+}
+
+.tweet-actions .tweet-action .count {
+    margin-left: 5px;
+}
+
+.favorite:hover, .retweet:hover {
+    cursor: pointer;
+}

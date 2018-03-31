@@ -9,9 +9,15 @@ const TweetSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    favorited: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
+      }  
+    ],
     datePosted: {
         type: Date,
-        default: Date.now        
+        default: Date.now
     }
 });
 

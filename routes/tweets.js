@@ -47,6 +47,29 @@ router.put('/', ensureAuthenticated, (req, res) => {
     })
 });
 
+router.put('/favorite', ensureAuthenticated, (req, res) => {
+    Tweet.findById(req.body.tweetId)
+    .then(tweet => {
+        let index = tweet.favorited.indexOf(req.user.id)
+        if (index === -1) {
+            tweet.favorited.push(req.user.id);
+        } else {
+            tweet.favorited.splice(index, 1);
+        }
+        tweet.save()
+        .then(() => {
+            res.send(JSON.stringify({
+                favorited: tweet.favorited.indexOf(req.user.id) !== -1,
+                favoritedCount: tweet.favorited.length
+            }));
+        });
+    });
+
+    // res.send(JSON.stringify({
+    //     favorited: true
+    // }));
+});
+
 // DELETE
 
 router.delete('/', ensureAuthenticated, (req, res) => {

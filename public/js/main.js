@@ -88,4 +88,35 @@ window.onload = () => {
             });
         }
     }
+
+    let favoriteButtons = document.querySelectorAll('.favorite');
+    if (favoriteButtons) {
+        favoriteButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let httpRequest = new XMLHttpRequest();
+                httpRequest.open('PUT', '/tweets/favorite', true);
+                httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                httpRequest.send(JSON.stringify({
+                    tweetId: btn.dataset.tweetId
+                }));
+
+                httpRequest.onload = () => {
+                    let res = httpRequest.responseText;
+                    if (res) {
+                        res = JSON.parse(res);
+                        if (res.favorited) {
+                            btn.innerHTML = `
+                                <small><i class="far fa-star text-primary"></i> <span>${res.favoritedCount}</span></small>
+                            `;
+                        } else {
+                            btn.innerHTML = `
+                                <small><i class="far fa-star"></i> <span>${res.favoritedCount}</span></small>
+                            `;
+                        }
+
+                    }
+                }
+            });
+        });
+    }
 }
