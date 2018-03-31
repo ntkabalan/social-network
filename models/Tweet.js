@@ -4,16 +4,22 @@ const TweetSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
-    },    
+    },
     text: {
         type: String,
         required: true
     },
     favorited: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
-      }  
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }
+    ],
+    retweeted: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users'
+        }
     ],
     datePosted: {
         type: Date,

@@ -1,6 +1,4 @@
-{{#if tweets}}
-
-{{!-- Edit Modal --}}
+{{#if tweets}} {{!-- Edit Modal --}}
 <div class="modal fade" id="editTweetModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,6 +66,14 @@
                     <div class="tweet-actions">
                         <div class="tweet-action">
                             {{{generateFavoriteButton ../user this}}}
+                        </div>
+                        <div class="tweet-action">
+                            <div class="retweet" data-tweet-id="{{id}}">
+                                <small>
+                                    <i class="fas fa-retweet"></i>
+                                    <span>0</span>
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>

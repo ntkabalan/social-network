@@ -42,7 +42,7 @@ router.put('/', ensureAuthenticated, (req, res) => {
         res.sendStatus(200);
     })
     .catch(error => {
-        req.flash('error_msg', 'Failed to edit Tweet - please try again later');
+        req.flash('error_msg', 'Failed to edit Tweet - please try again');
         res.sendStatus(500);
     })
 });
@@ -64,10 +64,6 @@ router.put('/favorite', ensureAuthenticated, (req, res) => {
             }));
         });
     });
-
-    // res.send(JSON.stringify({
-    //     favorited: true
-    // }));
 });
 
 // DELETE
