@@ -39,9 +39,5 @@
 }
 
 .favorite:hover, .retweet:hover {
-    text-decoration: none;
-}
-
-.favorite:visited, .retweet:visited {
-    text-decoration: none;
+    cursor: pointer;
 }

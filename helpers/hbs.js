@@ -5,7 +5,7 @@ module.exports = {
         return arr.length
     },
     generateFollowButton: (loggedInUser, profileOwner) => {
-        if (profileOwner.followers.indexOf(loggedInUser.id) != -1) {
+        if (profileOwner.followers.indexOf(loggedInUser.id) !== -1) {
             return `
                 <form class="mt-3" action="/users/unfollow/${profileOwner.id}" method="POST">
                     <input type="submit" value="Unfollow" class="btn btn-primary btn-block">
@@ -30,6 +30,21 @@ module.exports = {
             `
         } else {
             return ''
+        }
+    },
+    generateFavoriteButton: (loggedInUser, tweet) => {
+        if (tweet.favorited.indexOf(loggedInUser.id) !== -1) {
+            return `
+                <div class="favorite" data-tweet-id="${tweet.id}">
+                    <small><i class="far fa-star text-primary"></i> <span>${tweet.favorited.length}</span></small>
+                </div>
+            `
+        } else {
+            return `
+                <div class="favorite" data-tweet-id="${tweet.id}">
+                    <small><i class="far fa-star"></i> <span>${tweet.favorited.length}</span></small>
+                </div>
+            `
         }
     }
 }
