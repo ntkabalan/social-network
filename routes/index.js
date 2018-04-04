@@ -12,6 +12,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     Tweet.find({
         $or: [
             { user: { $in: req.user.following } },
+            { retweeted: { $elemMatch: { $in: req.user.following } } },
             { user: req.user.id }
         ]
     })
@@ -20,11 +21,11 @@ router.get('/', ensureAuthenticated, (req, res) => {
     .then(tweets => {
         res.render('index', {
             tweets: tweets
-        })
+        });
     })
     .catch(error => {
         console.log(error);
-    })
+    });
 });
 
 module.exports = router;

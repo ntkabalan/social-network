@@ -50,7 +50,7 @@ router.put('/', ensureAuthenticated, (req, res) => {
 router.put('/favorite', ensureAuthenticated, (req, res) => {
     Tweet.findById(req.body.tweetId)
     .then(tweet => {
-        let index = tweet.favorited.indexOf(req.user.id)
+        let index = tweet.favorited.indexOf(req.user.id);
         if (index === -1) {
             tweet.favorited.push(req.user.id);
         } else {
@@ -64,6 +64,25 @@ router.put('/favorite', ensureAuthenticated, (req, res) => {
             }));
         });
     });
+});
+
+router.put('/retweet', ensureAuthenticated, (req, res) => {
+    Tweet.findById(req.body.tweetId)
+    .then(tweet => {
+        let index = tweet.retweeted.indexOf(req.user.id);
+        if (index === -1) {
+            tweet.retweeted.push(req.user.id);
+        } else {
+            tweet.retweeted.splice(index, 1);
+        }
+        tweet.save()
+        .then(() => {
+            res.send(JSON.stringify({
+                retweeted: tweet.retweeted.indexOf(req.user.id) !== -1,
+                retweetedCount: tweet.retweeted.length
+            })); 
+        });
+    })
 });
 
 // DELETE

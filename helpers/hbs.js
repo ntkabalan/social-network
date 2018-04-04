@@ -46,5 +46,20 @@ module.exports = {
                 </div>
             `
         }
+    },
+    generateRetweetButton: (loggedInUser, tweet) => {
+        if (tweet.retweeted.indexOf(loggedInUser.id) !== -1) {
+            return `
+                <div class="retweet" data-tweet-id="${tweet.id}">
+                    <small><i class="fas fa-retweet text-primary"></i> <span>${tweet.retweeted.length}</span></small>
+                </div>
+            `
+        } else {
+            return `
+                <div class="retweet" data-tweet-id="${tweet.id}">
+                    <small><i class="fas fa-retweet"></i> <span>${tweet.retweeted.length}</span></small>
+                </div>
+            `
+        }
     }
 }
