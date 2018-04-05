@@ -1,6 +1,4 @@
-{{#if tweets}}
-
-{{!-- Edit Modal --}}
+{{#if tweets}} {{!-- Edit Modal --}}
 <div class="modal fade" id="editTweetModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -56,6 +54,9 @@
                     <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
                 </div>
                 <div class="text pl-3" style="overflow: hidden;">
+
+                    {{{generateRetweetLabel ../user this}}}
+                    
                     <div class="user-info">
                         <small class="align-top">
                             <a class="align-top" href="/users/profile/{{user.handle}}">{{user.firstName}} {{user.lastName}}</a>
@@ -68,6 +69,9 @@
                     <div class="tweet-actions">
                         <div class="tweet-action">
                             {{{generateFavoriteButton ../user this}}}
+                        </div>
+                        <div class="tweet-action">
+                            {{{generateRetweetButton ../user this}}}
                         </div>
                     </div>
                 </div>

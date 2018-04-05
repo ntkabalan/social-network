@@ -119,4 +119,35 @@ window.onload = () => {
             });
         });
     }
+
+    let retweetButtons = document.querySelectorAll('.retweet');
+    if (retweetButtons) {
+        retweetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                let httpRequest = new XMLHttpRequest();
+                httpRequest.open('PUT', '/tweets/retweet', true);
+                httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                httpRequest.send(JSON.stringify({
+                    tweetId: btn.dataset.tweetId
+                }));
+
+                httpRequest.onload = () => {
+                    let res = httpRequest.responseText;
+                    if (res) {
+                        res = JSON.parse(res);
+                        if (res.retweeted) {
+                            btn.innerHTML = `
+                                <small><i class="fas fa-retweet text-primary"></i> <span>${res.retweetedCount}</span></small>
+                            `;
+                        } else {
+                            btn.innerHTML = `
+                                <small><i class="fas fa-retweet"></i> <span>${res.retweetedCount}</span></small>
+                            `;
+                        }
+
+                    }
+                }
+            });
+        });
+    }
 }
