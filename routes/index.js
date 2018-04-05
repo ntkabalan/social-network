@@ -8,7 +8,6 @@ const Tweet = require('../models/Tweet');
 const router = express.Router();
 
 router.get('/', ensureAuthenticated, (req, res) => {
-
     Tweet.find({
         $or: [
             { user: { $in: req.user.following } },
@@ -17,6 +16,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
         ]
     })
     .populate('user')
+    .populate('retweeted')
     .sort({ datePosted: 'desc' })
     .then(tweets => {
         res.render('index', {
