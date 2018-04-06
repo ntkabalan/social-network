@@ -72,6 +72,53 @@ window.onload = () => {
         });
     }
 
+    let replyButtons = document.querySelectorAll('.reply');
+    if (replyButtons) {
+        replyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('#tweet-author').innerText = btn.dataset.author;
+                document.querySelector('#tweet-to-reply').innerText = btn.dataset.text;
+                document.querySelector('#reply-tweet-body').value = '';
+                document.querySelector('#reply-char-count').innerText = 140;
+
+                $('#replyTweetModal').modal('show');
+            });
+        });
+    }
+
+    let replyCharCounter = document.querySelector('#reply-char-count');
+    if (replyCharCounter) {
+        replyCharCounter.innerText = 140;
+        let replyTweetBody = document.querySelector('#reply-tweet-body');
+        if (replyTweetBody) {
+            replyTweetBody.addEventListener('input', () => {
+                replyCharCounter.innerText = 140 - replyTweetBody.value.length;
+
+                if (parseInt(replyCharCounter.innerText) < 0) {
+                    replyCharCounter.classList.add('text-danger');
+                } else {
+                    replyCharCounter.classList.remove('text-danger');
+                }
+            });
+        }
+    }
+
+    // let finishDelete = document.querySelector('#finish-delete');
+    // if (finishDelete) {
+    //     finishDelete.addEventListener('click', () => {
+    //         let tweetData = {
+    //             tweetID: document.querySelector('#tweet-preview').dataset.tweetid
+    //         }
+            
+    //         let httpRequest = new XMLHttpRequest();
+    //         httpRequest.open('DELETE', '/tweets/', true);
+    //         httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    //         httpRequest.send(JSON.stringify(tweetData));
+
+    //         location.reload();
+    //     });
+    // }
+
     let charCounter = document.querySelector('#char-count');
     if (charCounter) {
         charCounter.innerText = 140;

@@ -38,6 +38,6 @@
     margin-left: 5px;
 }
 
-.favorite:hover, .retweet:hover {
+.favorite:hover, .retweet:hover, .reply:hover {
     cursor: pointer;
 }

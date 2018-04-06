@@ -1,4 +1,6 @@
-{{#if tweets}} {{!-- Edit Modal --}}
+{{#if tweets}} 
+
+{{!-- Edit Modal --}}
 <div class="modal fade" id="editTweetModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -44,6 +46,35 @@
     </div>
 </div>
 
+{{!-- Reply model --}}
+<div class="modal fade" id="replyTweetModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="replyTweetModalLabel">Reply</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" id="tweet-author"></h5>
+                        <div class="card-text" id="tweet-to-reply"></div>
+                    </div>
+                </div>
+
+                <textarea name="reply" id="reply-tweet-body" class="form-control mt-2"></textarea>
+                <small id="reply-char-count"></small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="finish-reply">Reply</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{!-- Tweets --}}
 <div class="card mb-4">
     <ul class="list-group list-group-flush">
@@ -56,7 +87,7 @@
                 <div class="text pl-3" style="overflow: hidden;">
 
                     {{{generateRetweetLabel ../user this}}}
-                    
+
                     <div class="user-info">
                         <small class="align-top">
                             <a class="align-top" href="/users/profile/{{user.handle}}">{{user.firstName}} {{user.lastName}}</a>
@@ -73,6 +104,14 @@
                         <div class="tweet-action">
                             {{{generateRetweetButton ../user this}}}
                         </div>
+                        <div class="tweet-action">
+                            <div class="reply" data-author="{{user.firstName}} {{user.lastName}}" data-text="{{text}}">
+                                <small>
+                                    <i class="fas fa-reply"></i>
+                                    <span>0</span>
+                                </small>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -82,6 +121,7 @@
         {{/each}}
     </ul>
 </div>
+
 {{else}}
 <h6 class="text-center">No tweets found...</h6>
 {{/if}}
