@@ -21,6 +21,16 @@ const TweetSchema = new mongoose.Schema({
             ref: 'users'
         }
     ],
+    reply: {
+        type: Boolean,
+        default: false
+    },
+    replies: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'tweets'
+        }
+    ],
     datePosted: {
         type: Date,
         default: Date.now

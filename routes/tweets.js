@@ -29,6 +29,20 @@ router.post('/tweet', ensureAuthenticated, (req, res) => {
     }
 });
 
+router.post('/reply', ensureAuthenticated, (req, res) => {
+    const replyTweet = {
+        user: req.user.id,
+        text: req.body.replyText,
+        reply: true
+    }
+    new Tweet(replyTweet).save().then(replyTweet => {
+        Tweet.findById(req.body.tweetToReplyId).then((tweetToReply) => {
+            tweetToReply.replies.push(replyTweet);
+            tweetToReply.save();
+        });
+    });
+});
+
 // PUT requests
 
 router.put('/', ensureAuthenticated, (req, res) => {

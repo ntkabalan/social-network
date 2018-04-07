@@ -62,7 +62,7 @@ window.onload = () => {
             let tweetData = {
                 tweetID: document.querySelector('#tweet-preview').dataset.tweetid
             }
-            
+
             let httpRequest = new XMLHttpRequest();
             httpRequest.open('DELETE', '/tweets/', true);
             httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -80,9 +80,49 @@ window.onload = () => {
                 document.querySelector('#tweet-to-reply').innerText = btn.dataset.text;
                 document.querySelector('#reply-tweet-body').value = '';
                 document.querySelector('#reply-char-count').innerText = 140;
+                document.querySelector('#tweet-to-reply').setAttribute('data-tweet-id', btn.dataset.tweetId);
 
                 $('#replyTweetModal').modal('show');
             });
+        });
+    }
+
+    let finishReply = document.querySelector('#finish-reply');
+    if (finishReply) {
+        finishReply.addEventListener('click', () => {
+            let replyText = document.querySelector('#reply-tweet-body').value;
+
+            if (replyText.length === 0) {
+                document.getElementById('invalid-message').innerHTML = `
+                    <div class="alert alert-danger mb-0">Tweet body empty</div>
+                `
+            }
+            else if (replyText.length > 140) {
+                document.getElementById('invalid-message').innerHTML = `
+                    <div class="alert alert-danger mb-0">Tweets cannot be longer than 140 characters</div>
+                `
+            }
+
+            else {
+                let data = {
+                    tweetToReplyId: document.querySelector('#tweet-to-reply').dataset.tweetId,
+                    replyText: replyText
+                }
+
+                let httpRequest = new XMLHttpRequest();
+                httpRequest.open('POST', '/tweets/reply', true);
+                httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                httpRequest.send(JSON.stringify(data));
+
+                location.reload();
+            }
+        });
+    }
+
+    let replyCancel = document.querySelector('#reply-cancel');
+    if (replyCancel) {
+        replyCancel.addEventListener('click', () => {
+            document.getElementById('invalid-message').innerHTML = ''
         });
     }
 
@@ -102,22 +142,6 @@ window.onload = () => {
             });
         }
     }
-
-    // let finishDelete = document.querySelector('#finish-delete');
-    // if (finishDelete) {
-    //     finishDelete.addEventListener('click', () => {
-    //         let tweetData = {
-    //             tweetID: document.querySelector('#tweet-preview').dataset.tweetid
-    //         }
-            
-    //         let httpRequest = new XMLHttpRequest();
-    //         httpRequest.open('DELETE', '/tweets/', true);
-    //         httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    //         httpRequest.send(JSON.stringify(tweetData));
-
-    //         location.reload();
-    //     });
-    // }
 
     let charCounter = document.querySelector('#char-count');
     if (charCounter) {

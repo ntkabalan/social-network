@@ -17,6 +17,7 @@ router.get('/', ensureAuthenticated, (req, res) => {
     })
     .populate('user')
     .populate('retweeted')
+    .populate('replies')
     .sort({ datePosted: 'desc' })
     .then(tweets => {
         res.render('index', {
