@@ -221,4 +221,70 @@ window.onload = () => {
             });
         });
     }
+
+    let tweetBodies = document.querySelectorAll('.tweet-body');
+    if (tweetBodies) {
+        tweetBodies.forEach(tweet => {
+            tweet.addEventListener('click', () => {
+
+                let httpRequest = new XMLHttpRequest();
+                httpRequest.open('GET', `/tweets/tweet/${tweet.dataset.tweetId}`, true);
+                httpRequest.send();
+
+                httpRequest.onload = () => {
+                    let res = httpRequest.responseText;
+
+                    let tweet = JSON.parse(res);
+                    let tweetStream = document.querySelector('#tweet-stream');
+
+                    tweetStream.innerHTML = ''
+
+                    tweetStream.innerHTML += `
+                        <div class="card">
+
+                            <div class="card-body" style="display: flex;">
+
+                                <div class="profile-icon">
+                                    <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
+                                </div>
+
+                                <div class="pl-3" style="flex: 1;">
+                                    <h5 class="card-title"><a href="/users/profile/${tweet.user.handle}">${tweet.user.firstName} ${tweet.user.lastName}</a> <span class="text-secondary">@${tweet.user.handle}</span></h5>
+                                    <div>
+                                        ${tweet.text}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `
+
+                    if (tweet.replies.length) {
+                        tweetStream.innerHTML += '<ul class="list-group list-group-flush mt-4">'
+
+                        tweet.replies.forEach(reply => {
+                            tweetStream.innerHTML += `
+                                <li class="list-group-item" style="display: flex;">
+                                    <div class="profile-icon">
+                                        <img src="/img/user-placeholder.png" class="rounded" style="width: 50px;">
+                                    </div>
+
+                                    <div class="pl-3" style="flex: 1;">
+                                        <small class="card-title"><a class="align-top" href="/users/profile/${reply.user.handle}">${reply.user.firstName} ${reply.user.lastName}</a> <span class="text-secondary align-top">@${reply.user.handle}</span></small>
+                                        <div>
+                                            ${reply.text}
+                                        </div>
+                                    </div>
+                                </li>
+                            `
+                        });
+
+                        tweetStream.innerHTML += '</ul>'
+                    }
+
+                    $('#tweetModal').modal('show');
+                }
+
+            });
+        });
+    }
 }

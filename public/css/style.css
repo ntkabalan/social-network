@@ -41,3 +41,7 @@
 .favorite:hover, .retweet:hover, .reply:hover {
     cursor: pointer;
 }
+
+.tweet-body:hover {
+    cursor: pointer;
+}

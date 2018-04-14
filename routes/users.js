@@ -35,6 +35,8 @@ router.get('/profile/:handle', (req, res) => {
         if (user) {
             Tweet.find({ user: user.id })
             .populate('user')
+            .populate('retweeted')
+            .populate('replies')
             .then(tweets => {
                 res.render('users/profile', {
                     profileOwner: user,

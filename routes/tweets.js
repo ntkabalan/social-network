@@ -8,6 +8,34 @@ const { ensureAuthenticated } = require('../helpers/auth');
 
 const router = express.Router();
 
+// Get requests
+
+router.get('/tweet/:id', (req, res) => {
+    Tweet.findById(req.params.id)
+    .populate({
+        path: 'user',
+        select: [
+            'firstName',
+            'lastName',
+            'handle'
+        ]
+    })
+    .populate({
+        path: 'replies',
+        populate: { 
+            path: 'user',
+            select: [
+                'firstName', 
+                'lastName',
+                'handle'
+            ]
+        }
+    })
+    .then(tweet => {
+        res.send(tweet);
+    });
+});
+
 // POST requests
 
 router.post('/tweet', ensureAuthenticated, (req, res) => {
@@ -106,6 +134,14 @@ router.delete('/', ensureAuthenticated, (req, res) => {
 
     Tweet.findByIdAndRemove(tweetID)
     .then(() => {
+        Tweet.findOne({ replies: tweetID }).then(tweet => {
+            if (tweet) {
+                const index = tweet.replies.indexOf(tweetID);
+                tweet.replies.splice(index, 1);
+                tweet.save();
+            }
+        });
+
         res.sendStatus(200);
     })
     .catch(error => {
